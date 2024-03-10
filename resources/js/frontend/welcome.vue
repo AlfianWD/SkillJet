@@ -184,8 +184,6 @@
         function scrollFunction() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-            console.log("Current Scroll: ", currentScroll);
-
             if (buttonTop) {
                 if ( currentScroll >20) {
                     buttonTop.style.display = "block";
