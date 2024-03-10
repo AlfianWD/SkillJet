@@ -94,20 +94,19 @@ export default {
             email: '',
             password: '',
         }
-    }
+    },
     methods: {
         async submitForm() {
             const formData = {
-                email: this.email;
-                password: this.password;
+                email: this.email,
+                password: this.password,
             };
 
             try {
                 const respone = await axios.post('http//127.0.0.1:8000/api/submit', formData);
                 console.log(respone.data);
-            } catch () {
-                console.error(error);    
-                
+            } catch (error) {
+                console.error(error);
             }
         }
     }
