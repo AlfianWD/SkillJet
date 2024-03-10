@@ -15,10 +15,11 @@
                     </div>
                     <h2>Buat Akun</h2>
                 </div>
-                <form class="pe-4 ps-4">
+                <form class="pe-4 ps-4" @submit.prevent="submitForm">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" 
+                        <input v-model="email"
+                               type="email" 
                                class="form-control" 
                                id="email" 
                                aria-describedby="email"
@@ -27,7 +28,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="password1" class="form-label">Password</label>
-                        <input type="password" 
+                        <input v-model="password"
+                               type="password" 
                                class="form-control" 
                                id="password"
                                placeholder="masukkan password anda disini"
@@ -82,6 +84,35 @@
         </div>
     </div>
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+    data() {
+        return {
+            email: '',
+            password: '',
+        }
+    }
+    methods: {
+        async submitForm() {
+            const formData = {
+                email: this.email;
+                password: this.password;
+            };
+
+            try {
+                const respone = await axios.post('http//127.0.0.1:8000/api/submit', formData);
+                console.log(respone.data);
+            } catch () {
+                console.error(error);    
+                
+            }
+        }
+    }
+}
+</script>
 
 <style>
     .forgot-password {
