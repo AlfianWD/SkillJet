@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use app\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -12,15 +16,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
+            'confirmPassword' => 'required|same:password',
         ]);
 
         $user = User::create([
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'password' => Hash::make($request->input('password')),
         ]);
 
-        return response()->json(['message' => 'Data berhasil disimpan', 'user' => $user]);
+        $user->save();
+    
     }
 }
