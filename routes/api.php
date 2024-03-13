@@ -19,10 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::post('/api/register', [UserController::class, 'store']);
+Route::post('/post', [UserController::class, 'store']);
 
-Route::post('/post', function (Request $request) {
-    return $request->user();
-});
+// Route::post('/post', function (Request $request) {
+//     return $request->user();
+// });
 
 

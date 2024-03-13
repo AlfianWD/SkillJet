@@ -15,10 +15,10 @@
                     </div>
                     <h2>Buat Akun</h2>
                 </div>
-                <form class="pe-4 ps-4" @submit.prevent="submitForm" method="post">
+                <form class="pe-4 ps-4" @submit.prevent="submitForm">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input v-model="form.email"
+                        <input v-model="email"
                                type="email" 
                                class="form-control" 
                                id="email" 
@@ -28,7 +28,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="password1" class="form-label">Password</label>
-                        <input v-model="form.password"
+                        <input v-model="password"
                                type="password" 
                                class="form-control" 
                                id="password"
@@ -37,7 +37,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="confirm-password1" class="form-label">Confirm Password</label>
-                        <input v-model="form.confirmPassword"
+                        <input v-model="confirmPassword"
                                type="password" 
                                class="form-control" 
                                id="confirm-password"
@@ -88,16 +88,13 @@
 
 <script>
 import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
 
 export default {
     data() {
         return {
-            form : {
-                email: '',
-                password: '',
-                confirmPassword: ''
-            }
+            email: '',
+            password: '',
+            confirmPassword: ''
         }
     },
     computed: {
@@ -108,20 +105,24 @@ export default {
     },
     methods: {
         async submitForm() {
-            console.log("data form :", this.form);
             console.log(this.crsfToken);
 
-            console.log(typeof this.form.email);
-            console.log(typeof this.form.email);
-            console.log(typeof this.form.password);
-            console.log(typeof this.form.confirmPassword);
+            console.log(typeof this.email);
+            console.log(typeof this.password);
+            console.log(typeof this.confirmPassword);
 
             if (this.crsfToken) {
-                if (this.form.email && this.form.password) {
-                    axios.post('http://localhost:8000/api/post', {
-                                email: this.form.email.toString(),
-                                password: this.form.password.toString()
-                            }, {
+                if (this.email && this.password) {
+
+                    const data = {
+                        email: this.email,
+                        password: this.password,
+                        confirmPassword: this.confirmPassword
+                    };
+
+                    console.log(data);
+
+                    axios.post('http://localhost:8000/api/post', JSON.stringify(data), {
                              headers: {
                                 'Content-type' : 'application/json',
                                 'X-CSRF-TOKEN': this.crsfToken
@@ -137,7 +138,7 @@ export default {
                   console.error('Email atau password tidak terdefinisi');
                 }
             } else {
-                console.error('Email atau password tidak terdefinisi');
+                console.error('Token CSRF tidak teridentifikasi');
             }
         }
     }
