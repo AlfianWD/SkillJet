@@ -38,16 +38,5 @@ class UserController extends Controller
             Log::error('Error in UserController@store: ' . $e->getMessage());
 
         }
-       
-        // $user = new User();
-        // $user->email = $request->input('email');
-        // $user->password = Hash::make($request->input('password'));
-
-        // print_r($user);
-
-        // Log::info('Before saving user: ' . print_r($user->getAttributes(), true));
-
-        // Log::info('After saving user: ' . print_r($user->toArray(), true));
-    
     }
 }
